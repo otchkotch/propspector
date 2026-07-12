@@ -464,11 +464,8 @@ class ZoningFeasibilityApp(ctk.CTk):
             return "Review required"
         option = recommendation.development_option.lower()
         if "mixed use" in option:
-            if recommendation.program_scenario:
-                scenario = recommendation.program_scenario
-                return f"{scenario.modeled_units or 0:,} units within +/-{(scenario.envelope_gfa or 0):,} sf GFA envelope"
             commercial_gfa, units = self._mixed_use_split(recommendation)
-            return f"{units:,} units within mixed-use GFA program; {commercial_gfa:,} sf commercial component"
+            return f"{recommendation.conservative_yield or 0:,} sf GFA envelope / {units:,} derived units"
         return self._yield_metric_text(result, recommendation)
 
     def _display_option_name(self, recommendation: YieldRecommendation) -> str:
@@ -483,41 +480,23 @@ class ZoningFeasibilityApp(ctk.CTk):
         return option
 
     def _opportunity_detail_lines(self, result: FeasibilityResult, recommendation: YieldRecommendation) -> tuple[str, ...]:
-        gross_label = "Theoretical envelope" if recommendation.program_scenario else "Theoretical screen"
-        gross_value = (
-            f"{recommendation.program_scenario.envelope_gfa or 0:,} sf GFA"
-            if recommendation.program_scenario
-            else ("-" if recommendation.gross_area_yield is None else f"{recommendation.gross_area_yield:,}")
-        )
         lines = [
             f"Development option: {recommendation.development_option}",
             f"Status: {recommendation.status}",
-            f"Recommended scenario: {self._yield_breakdown(result, recommendation)}",
-            f"{gross_label}: {gross_value}",
+            f"Recommended yield: {self._yield_breakdown(result, recommendation)}",
+            f"Gross screen: {'-' if recommendation.gross_area_yield is None else f'{recommendation.gross_area_yield:,}'}",
         ]
         if "mixed use" in recommendation.development_option.lower():
-            scenario = recommendation.program_scenario
-            if scenario:
-                lines.extend(
-                    (
-                        f"Buildable envelope: +/-{(scenario.envelope_gfa or 0):,} sf GFA.",
-                        f"Residential screen: {scenario.modeled_units or 0:,} units within the GFA envelope.",
-                        f"Code allocation: +/-{(scenario.total_program_gfa or 0):,} sf total GFA; +/-{(scenario.residential_gfa or 0):,} sf residential; +/-{(scenario.commercial_gfa or 0):,} sf commercial.",
-                        "Planning-level zoning screen; verify against recorded plans, approvals, site constraints, and final engineering.",
-                    )
+            outdoor_units = self._mixed_use_units_from_note(recommendation.note)
+            site_units = self._mixed_use_site_units_from_note(recommendation.note)
+            if outdoor_units or site_units:
+                commercial_gfa, ranked_units = self._mixed_use_split(recommendation)
+                lines.append(
+                    f"Mixed-use split: {commercial_gfa:,} sf commercial GFA plus {ranked_units:,} apartments. "
+                    f"The apartment count is capped by residential GFA, outdoor-area support"
+                    f"{f' ({outdoor_units:,} units)' if outdoor_units else ''}, and site support"
+                    f"{f' ({site_units:,} units)' if site_units else ''}."
                 )
-
-            else:
-                outdoor_units = self._mixed_use_units_from_note(recommendation.note)
-                site_units = self._mixed_use_site_units_from_note(recommendation.note)
-                if outdoor_units or site_units:
-                    commercial_gfa, ranked_units = self._mixed_use_split(recommendation)
-                    lines.append(
-                        f"Mixed-use split: {ranked_units:,} apartments modeled within the mixed-use GFA program, with {commercial_gfa:,} sf commercial GFA. "
-                        f"The apartment count is capped by residential GFA, outdoor-area support"
-                        f"{f' ({outdoor_units:,} units)' if outdoor_units else ''}, and site support"
-                        f"{f' ({site_units:,} units)' if site_units else ''}."
-                    )
         if recommendation.development_option == "Other / custom use":
             lines.append(
                 "Plain-English examples: school/civic/institutional-style facilities, community-serving uses, utilities, renewable/solar facilities, or other permitted nonresidential uses that are not better represented by office, retail, industrial, or residential categories."
@@ -755,9 +734,6 @@ class ZoningFeasibilityApp(ctk.CTk):
     def _snapshot_answer(self, result: FeasibilityResult, best: YieldRecommendation | None) -> tuple[str, str]:
         if not best or best.conservative_yield is None:
             return ("Feasibility answer", result.summary)
-        if best.program_scenario:
-            scenario = best.program_scenario
-            return ("Residential scenario", f"{scenario.modeled_units or 0:,} units within +/-{(scenario.envelope_gfa or 0):,} sf GFA envelope | {self._market_range_text(best)}")
         if best.market_value_low is not None and best.market_value_high is not None:
             return ("Highest-value screen", f"{self._yield_metric_text(result, best)} | {self._market_range_text(best)}")
         if result.capacity_matrix and result.capacity_matrix.capacity_type == "nonresidential":

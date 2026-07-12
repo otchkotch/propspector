@@ -719,11 +719,7 @@ class PropSpectorApp(ctk.CTk):
             ).grid(row=1, column=0, columnspan=2, sticky="ew", padx=10, pady=(0, 10))
             return
 
-        if recommendation.program_scenario:
-            self._render_program_scenario(card, recommendation)
-            return
-
-        ctk.CTkLabel(card, text="Planning-Level Yield", font=self._font(10, "bold"), text_color="#789188", anchor="w").grid(row=1, column=0, sticky="w", padx=10, pady=(0, 1))
+        ctk.CTkLabel(card, text="Estimated Yield", font=self._font(10, "bold"), text_color="#789188", anchor="w").grid(row=1, column=0, sticky="w", padx=10, pady=(0, 1))
         ctk.CTkLabel(card, text="Estimated Income", font=self._font(10, "bold"), text_color="#789188", anchor="e").grid(row=1, column=1, sticky="e", padx=10, pady=(0, 1))
         ctk.CTkLabel(card, text=self._yield_breakdown(result, recommendation), font=self._font(13, "bold"), text_color="#dfe9e4", anchor="w").grid(row=2, column=0, sticky="ew", padx=10, pady=(0, 10))
         ctk.CTkLabel(card, text=self._market_range_text(recommendation), font=self._font(13, "bold"), text_color="#dfe9e4", anchor="e").grid(row=2, column=1, sticky="e", padx=10, pady=(0, 10))
@@ -736,32 +732,6 @@ class PropSpectorApp(ctk.CTk):
                 anchor="w",
             ).grid(row=3, column=0, columnspan=2, sticky="ew", padx=10, pady=(0, 8))
 
-    def _render_program_scenario(self, card: ctk.CTkFrame, recommendation: YieldRecommendation) -> None:
-        scenario = recommendation.program_scenario
-        if scenario is None:
-            return
-        envelope = self._approx_sf(scenario.envelope_gfa)
-        total = self._approx_sf(scenario.total_program_gfa)
-        residential = self._approx_sf(scenario.residential_gfa)
-        commercial = self._approx_sf(scenario.commercial_gfa)
-
-        ctk.CTkLabel(card, text="Buildable Envelope", font=self._font(10, "bold"), text_color="#789188", anchor="w").grid(row=1, column=0, sticky="w", padx=10, pady=(0, 1))
-        ctk.CTkLabel(card, text="Residential Screen", font=self._font(10, "bold"), text_color="#789188", anchor="e").grid(row=1, column=1, sticky="e", padx=10, pady=(0, 1))
-        ctk.CTkLabel(card, text=f"{envelope} GFA", font=self._font(13, "bold"), text_color="#dfe9e4", anchor="w").grid(row=2, column=0, sticky="ew", padx=10, pady=(0, 8))
-        ctk.CTkLabel(card, text=f"{scenario.modeled_units or 0:,} units", font=self._font(13, "bold"), text_color="#dfe9e4", anchor="e").grid(row=2, column=1, sticky="e", padx=10, pady=(0, 8))
-
-        allocation = f"Code allocation: {total} total GFA | {residential} residential | {commercial} commercial"
-        ctk.CTkLabel(card, text=allocation, font=self._font(11), text_color="#b8c9c2", anchor="w", wraplength=405).grid(row=3, column=0, columnspan=2, sticky="ew", padx=10, pady=(0, 6))
-
-        note = "Planning-level zoning screen. Units are derived within the GFA envelope, not added to it."
-        if recommendation.status not in {"By Right", "Preliminary Municipal Yield"}:
-            note = f"{recommendation.status}. {note}"
-        ctk.CTkLabel(card, text=note, font=self._font(10), text_color="#91c7a9", anchor="w", wraplength=405, justify="left").grid(row=4, column=0, columnspan=2, sticky="ew", padx=10, pady=(0, 10))
-    def _approx_sf(self, value: int | None) -> str:
-        if value is None:
-            return "-"
-        rounded = int(round(value / 1_000.0) * 1_000)
-        return f"+/-{rounded:,} SF"
     def _show_present_layers(self) -> None:
         for name, var in self.preview_layer_vars.items():
             status = self.resource_status_by_name.get(name)
@@ -837,11 +807,8 @@ class PropSpectorApp(ctk.CTk):
             return "Review required"
         option = recommendation.development_option.lower()
         if "mixed use" in option:
-            if recommendation.program_scenario:
-                scenario = recommendation.program_scenario
-                return f"{scenario.modeled_units or 0:,} units within {self._approx_sf(scenario.envelope_gfa)} GFA envelope"
             commercial_gfa, units = self._mixed_use_split(recommendation)
-            return f"{units:,} units within mixed-use GFA program; {commercial_gfa:,} sf commercial component"
+            return f"{recommendation.conservative_yield or 0:,} sf GFA envelope / {units:,} derived units"
         if "solar" in option:
             return f"{recommendation.conservative_yield:,} sf site area"
         if any(label in option for label in ("single-family", "two-family", "townhouse", "semi-detached")):
