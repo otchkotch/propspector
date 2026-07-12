@@ -1,0 +1,13 @@
+{
+  "key": "ODESSA",
+  "display_name": "Town of Odessa",
+  "source_url": "https://library.municode.com/de/odessa/codes/code_of_ordinances",
+  "checked_at": "2026-06-30T22:23:22",
+  "status": "municode_source_invalid_or_state_landing",
+  "section_count": 0,
+  "notes": [
+    "Rendered URL: https://library.municode.com/de",
+    "Rendered title: Delaware | Municode Library",
+    "The registry source does not expose a municipal code page for this bot."
+  ]
+}

@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Zoning Feasibility Workspace</title>
+    <link rel="stylesheet" href="https://js.arcgis.com/4.31/esri/themes/dark/main.css" />
+    <link rel="stylesheet" href="/styles.css" />
+    <script src="https://js.arcgis.com/4.31/"></script>
+  </head>
+  <body>
+    <main class="workspace">
+      <section class="map-shell">
+        <div id="mapView"></div>
+        <div class="map-toolbar">
+          <div>
+            <span class="eyebrow">Zoning Feasibility</span>
+            <h1>Workspace</h1>
+          </div>
+          <button id="fitParcelButton" type="button" title="Zoom to parcel">Fit Parcel</button>
+        </div>
+        <div id="mapStatus" class="map-status">Map loading...</div>
+      </section>
+
+      <aside class="side-panel">
+        <form id="analysisForm" class="panel-card input-card">
+          <div class="panel-title-row">
+            <div>
+              <span class="eyebrow">NCC GIS + Municode</span>
+              <h2>Feasibility Check</h2>
+            </div>
+            <span id="statusPill" class="status-pill">Ready</span>
+          </div>
+
+          <label>
+            <span>Parcel number(s)</span>
+            <input id="parcelInput" name="parcel" placeholder="0804930379 or 1000100074, 1000100014" autocomplete="off" />
+          </label>
+
+          <details class="advanced-use">
+            <summary>Advanced intended use</summary>
+            <input id="intendedUseInput" name="intendedUse" placeholder="solar panels, hospital, apartments..." autocomplete="off" />
+          </details>
+
+          <button id="runButton" type="submit">Run Feasibility</button>
+        </form>
+
+        <section id="snapshotCard" class="panel-card snapshot-card">
+          <span class="eyebrow">Snapshot</span>
+          <h2 id="snapshotHeadline">Run a parcel to populate the workspace.</h2>
+          <div id="parcelFacts" class="facts-grid"></div>
+        </section>
+
+        <section class="panel-card">
+          <div class="section-heading">
+            <h3>Development Options</h3>
+            <span id="optionCount">0</span>
+          </div>
+          <div id="recommendations" class="recommendation-list empty-state">Results will appear here.</div>
+        </section>
+
+        <section class="panel-card">
+          <div class="section-heading">
+            <h3>Environmental Constraints</h3>
+            <span id="resourceCount">0</span>
+          </div>
+          <div id="resources" class="resource-list empty-state">Mapped resources will appear here.</div>
+        </section>
+
+        <section class="panel-card">
+          <div class="section-heading">
+            <h3>Notes</h3>
+            <a id="downloadReport" class="text-link hidden" href="#">Download report</a>
+          </div>
+          <ul id="notes" class="notes-list"></ul>
+        </section>
+      </aside>
+    </main>
+
+    <script src="/app.js"></script>
+  </body>
+</html>

@@ -1,0 +1,178 @@
+{
+  "built_at": "2026-06-30T22:29:05",
+  "municipality_count": 15,
+  "results": [
+    {
+      "key": "ARDEN",
+      "display_name": "Village of Arden",
+      "source_url": "https://library.municode.com/de/arden/codes/code_of_ordinances",
+      "checked_at": "2026-06-30T22:00:12",
+      "status": "municode_source_invalid_or_state_landing",
+      "section_count": 0,
+      "notes": [
+        "Rendered URL: https://library.municode.com/de",
+        "Rendered title: Delaware | Municode Library",
+        "The registry source does not expose a municipal code page for this bot."
+      ]
+    },
+    {
+      "key": "ARDENCROFT",
+      "display_name": "Village of Ardencroft",
+      "source_url": "https://library.municode.com/de/ardencroft/codes/code_of_ordinances",
+      "checked_at": "2026-06-30T22:00:21",
+      "status": "municode_source_invalid_or_state_landing",
+      "section_count": 0,
+      "notes": [
+        "Rendered URL: https://library.municode.com/de",
+        "Rendered title: Delaware | Municode Library",
+        "The registry source does not expose a municipal code page for this bot."
+      ]
+    },
+    {
+      "key": "ARDENTOWN",
+      "display_name": "Village of Ardentown",
+      "source_url": "https://library.municode.com/de/ardentown/codes/code_of_ordinances",
+      "checked_at": "2026-06-30T22:00:29",
+      "status": "municode_source_invalid_or_state_landing",
+      "section_count": 0,
+      "notes": [
+        "Rendered URL: https://library.municode.com/de",
+        "Rendered title: Delaware | Municode Library",
+        "The registry source does not expose a municipal code page for this bot."
+      ]
+    },
+    {
+      "key": "BELLEFONTE",
+      "display_name": "Town of Bellefonte",
+      "source_url": "https://library.municode.com/de/bellefonte/codes/code_of_ordinances",
+      "checked_at": "2026-06-30T22:00:37",
+      "status": "municode_source_invalid_or_state_landing",
+      "section_count": 0,
+      "notes": [
+        "Rendered URL: https://library.municode.com/de",
+        "Rendered title: Delaware | Municode Library",
+        "The registry source does not expose a municipal code page for this bot."
+      ]
+    },
+    {
+      "key": "CLAYTON",
+      "display_name": "Town of Clayton",
+      "source_url": "https://library.municode.com/de/clayton/codes/code_of_ordinances",
+      "checked_at": "2026-06-30T22:00:45",
+      "status": "sections_extracted",
+      "section_count": 5,
+      "notes": []
+    },
+    {
+      "key": "DELAWARE CITY",
+      "display_name": "Delaware City",
+      "source_url": "https://library.municode.com/de/delaware_city/codes/code_of_ordinances",
+      "checked_at": "2026-06-30T22:05:01",
+      "status": "sections_extracted",
+      "section_count": 17,
+      "notes": []
+    },
+    {
+      "key": "ELSMERE",
+      "display_name": "Town of Elsmere",
+      "source_url": "https://library.municode.com/de/elsmere/codes/code_of_ordinances",
+      "checked_at": "2026-06-30T22:10:48",
+      "status": "municode_source_invalid_or_state_landing",
+      "section_count": 0,
+      "notes": [
+        "Rendered URL: https://library.municode.com/de",
+        "Rendered title: Delaware | Municode Library",
+        "The registry source does not expose a municipal code page for this bot."
+      ]
+    },
+    {
+      "key": "WILMINGTON",
+      "display_name": "City of Wilmington",
+      "source_url": "https://library.municode.com/de/wilmington/codes/code_of_ordinances?nodeId=PTIIWICO_CH48ZO",
+      "checked_at": "2026-06-30T22:10:56",
+      "status": "sections_extracted",
+      "section_count": 26,
+      "notes": []
+    },
+    {
+      "key": "NEWARK",
+      "display_name": "City of Newark",
+      "source_url": "https://library.municode.com/de/newark/codes/code_of_ordinances",
+      "checked_at": "2026-06-30T22:17:11",
+      "status": "sections_extracted",
+      "section_count": 16,
+      "notes": []
+    },
+    {
+      "key": "MIDDLETOWN",
+      "display_name": "Town of Middletown",
+      "source_url": "https://evogov.s3.us-west-2.amazonaws.com/126/media/302288.pdf",
+      "checked_at": "2026-06-30T22:23:05",
+      "status": "pdf_sections_available_existing",
+      "section_count": 31,
+      "notes": [
+        "PDF extraction dependency is not available in this Python environment, but an existing PDF-derived section cache is present.",
+        "ModuleNotFoundError: No module named 'pdfplumber'"
+      ]
+    },
+    {
+      "key": "NEW CASTLE",
+      "display_name": "City of New Castle",
+      "source_url": "https://library.municode.com/de/new_castle/codes/code_of_ordinances",
+      "checked_at": "2026-06-30T22:23:06",
+      "status": "municode_source_invalid_or_state_landing",
+      "section_count": 0,
+      "notes": [
+        "Rendered URL: https://library.municode.com/de",
+        "Rendered title: Delaware | Municode Library",
+        "The registry source does not expose a municipal code page for this bot."
+      ]
+    },
+    {
+      "key": "NEWPORT",
+      "display_name": "Town of Newport",
+      "source_url": "https://library.municode.com/de/newport/codes/code_of_ordinances",
+      "checked_at": "2026-06-30T22:23:14",
+      "status": "municode_source_invalid_or_state_landing",
+      "section_count": 0,
+      "notes": [
+        "Rendered URL: https://library.municode.com/de",
+        "Rendered title: Delaware | Municode Library",
+        "The registry source does not expose a municipal code page for this bot."
+      ]
+    },
+    {
+      "key": "ODESSA",
+      "display_name": "Town of Odessa",
+      "source_url": "https://library.municode.com/de/odessa/codes/code_of_ordinances",
+      "checked_at": "2026-06-30T22:23:22",
+      "status": "municode_source_invalid_or_state_landing",
+      "section_count": 0,
+      "notes": [
+        "Rendered URL: https://library.municode.com/de",
+        "Rendered title: Delaware | Municode Library",
+        "The registry source does not expose a municipal code page for this bot."
+      ]
+    },
+    {
+      "key": "SMYRNA",
+      "display_name": "Town of Smyrna",
+      "source_url": "https://library.municode.com/de/smyrna/codes/code_of_ordinances",
+      "checked_at": "2026-06-30T22:23:31",
+      "status": "sections_extracted",
+      "section_count": 15,
+      "notes": []
+    },
+    {
+      "key": "TOWNSEND",
+      "display_name": "Town of Townsend",
+      "source_url": "https://library.municode.com/de/townsend/codes/code_of_ordinances",
+      "checked_at": "2026-06-30T22:28:57",
+      "status": "no_sections_extracted",
+      "section_count": 0,
+      "notes": [
+        "The source page loaded but no usable rendered sections were extracted."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+
+# Build and release outputs
+build/
+dist/
+release/
+*.spec.bak
+
+# Local/test output
+tmp_preview_test/
+*.log
+
+# Keep packaged municipal cache inputs, ignore generated cache runs
+cache/*
+!cache/municipal-sections/
+!cache/municipal-sections/**
+!cache/municipal-source-status/
+!cache/municipal-source-status/**
+
+# OS/editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

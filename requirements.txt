@@ -1,0 +1,5 @@
+playwright==1.60.0
+customtkinter==6.0.0
+pillow==12.2.0
+reportlab==5.0.0
+pyinstaller==6.21.0

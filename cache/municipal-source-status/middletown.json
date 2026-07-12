@@ -1,0 +1,12 @@
+{
+  "key": "MIDDLETOWN",
+  "display_name": "Town of Middletown",
+  "source_url": "https://evogov.s3.us-west-2.amazonaws.com/126/media/302288.pdf",
+  "checked_at": "2026-06-30T22:23:05",
+  "status": "pdf_sections_available_existing",
+  "section_count": 31,
+  "notes": [
+    "PDF extraction dependency is not available in this Python environment, but an existing PDF-derived section cache is present.",
+    "ModuleNotFoundError: No module named 'pdfplumber'"
+  ]
+}
