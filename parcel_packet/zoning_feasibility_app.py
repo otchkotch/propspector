@@ -21,7 +21,6 @@ from .zoning_feasibility_runner import (
     MIXED_USE_RESIDENTIAL_GROSS_EFFICIENCY,
     VALUE_SCREEN_METHOD_LINES,
     VALUE_SCREEN_SOURCE_LINES,
-    YIELD_PLANNING_DISCLAIMER,
     FeasibilityResult,
     YieldRecommendation,
     ZoningFeasibilityRunner,
@@ -501,11 +500,10 @@ class ZoningFeasibilityApp(ctk.CTk):
             if scenario:
                 lines.extend(
                     (
-                        f"Theoretical buildable envelope: +/-{(scenario.envelope_gfa or 0):,} sf GFA.",
-                        f"Residential scenario: {scenario.modeled_units or 0:,} apartment units modeled within the GFA envelope, not in addition to it.",
-                        f"Assumed program mix: +/-{(scenario.total_program_gfa or 0):,} sf total GFA; +/-{(scenario.residential_gfa or 0):,} sf residential, +/-{(scenario.commercial_gfa or 0):,} sf retail/commercial, +/-{(scenario.accessory_gfa or 0):,} sf clubhouse/maintenance/accessory.",
-                        scenario.caveat,
-                        YIELD_PLANNING_DISCLAIMER,
+                        f"Buildable envelope: +/-{(scenario.envelope_gfa or 0):,} sf GFA.",
+                        f"Residential screen: {scenario.modeled_units or 0:,} units within the GFA envelope.",
+                        f"Code allocation: +/-{(scenario.total_program_gfa or 0):,} sf total GFA; +/-{(scenario.residential_gfa or 0):,} sf residential; +/-{(scenario.commercial_gfa or 0):,} sf commercial.",
+                        "Planning-level zoning screen; verify against recorded plans, approvals, site constraints, and final engineering.",
                     )
                 )
 

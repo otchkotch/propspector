@@ -28,7 +28,6 @@ from .zoning_feasibility_runner import (
     MIXED_USE_COMMERCIAL_GFA_SHARE,
     MIXED_USE_PROGRAM_GFA_UTILIZATION,
     MIXED_USE_RESIDENTIAL_GROSS_EFFICIENCY,
-    YIELD_PLANNING_DISCLAIMER,
     FeasibilityResult,
     YieldRecommendation,
     ZoningFeasibilityRunner,
@@ -745,22 +744,19 @@ class PropSpectorApp(ctk.CTk):
         total = self._approx_sf(scenario.total_program_gfa)
         residential = self._approx_sf(scenario.residential_gfa)
         commercial = self._approx_sf(scenario.commercial_gfa)
-        accessory = self._approx_sf(scenario.accessory_gfa)
-        ctk.CTkLabel(card, text="Theoretical Buildable Envelope", font=self._font(10, "bold"), text_color="#789188", anchor="w").grid(row=1, column=0, sticky="w", padx=10, pady=(0, 1))
-        ctk.CTkLabel(card, text="Derived Residential Units", font=self._font(10, "bold"), text_color="#789188", anchor="e").grid(row=1, column=1, sticky="e", padx=10, pady=(0, 1))
-        ctk.CTkLabel(card, text=f"{envelope} GFA", font=self._font(13, "bold"), text_color="#dfe9e4", anchor="w").grid(row=2, column=0, sticky="ew", padx=10, pady=(0, 8))
-        ctk.CTkLabel(card, text=f"{scenario.modeled_units or 0:,} apartment units", font=self._font(13, "bold"), text_color="#dfe9e4", anchor="e").grid(row=2, column=1, sticky="e", padx=10, pady=(0, 8))
-        mix = (
-            f"Code-Derived GFA Allocation: {total} Total GFA\n"
-            f"- {residential} Residential GFA\n"
-            f"- {commercial} Retail/Commercial GFA\n"
-            f"- {accessory} Clubhouse / Maintenance / Accessory GFA"
-        )
-        ctk.CTkLabel(card, text=mix, font=self._font(11), text_color="#b8c9c2", anchor="w", justify="left", wraplength=405).grid(row=3, column=0, columnspan=2, sticky="ew", padx=10, pady=(0, 8))
-        ctk.CTkLabel(card, text="GFA and unit count are linked; units are derived within the applicable code envelope, not added to it.", font=self._font(11, "bold"), text_color="#91c7a9", anchor="w", wraplength=405, justify="left").grid(row=4, column=0, columnspan=2, sticky="ew", padx=10, pady=(0, 6))
-        ctk.CTkLabel(card, text=scenario.caveat, font=self._font(11), text_color="#d0bc78", anchor="w", wraplength=405, justify="left").grid(row=5, column=0, columnspan=2, sticky="ew", padx=10, pady=(0, 6))
-        ctk.CTkLabel(card, text=YIELD_PLANNING_DISCLAIMER, font=self._font(10), text_color="#7f8c88", anchor="w", wraplength=405, justify="left").grid(row=6, column=0, columnspan=2, sticky="ew", padx=10, pady=(0, 10))
 
+        ctk.CTkLabel(card, text="Buildable Envelope", font=self._font(10, "bold"), text_color="#789188", anchor="w").grid(row=1, column=0, sticky="w", padx=10, pady=(0, 1))
+        ctk.CTkLabel(card, text="Residential Screen", font=self._font(10, "bold"), text_color="#789188", anchor="e").grid(row=1, column=1, sticky="e", padx=10, pady=(0, 1))
+        ctk.CTkLabel(card, text=f"{envelope} GFA", font=self._font(13, "bold"), text_color="#dfe9e4", anchor="w").grid(row=2, column=0, sticky="ew", padx=10, pady=(0, 8))
+        ctk.CTkLabel(card, text=f"{scenario.modeled_units or 0:,} units", font=self._font(13, "bold"), text_color="#dfe9e4", anchor="e").grid(row=2, column=1, sticky="e", padx=10, pady=(0, 8))
+
+        allocation = f"Code allocation: {total} total GFA | {residential} residential | {commercial} commercial"
+        ctk.CTkLabel(card, text=allocation, font=self._font(11), text_color="#b8c9c2", anchor="w", wraplength=405).grid(row=3, column=0, columnspan=2, sticky="ew", padx=10, pady=(0, 6))
+
+        note = "Planning-level zoning screen. Units are derived within the GFA envelope, not added to it."
+        if recommendation.status not in {"By Right", "Preliminary Municipal Yield"}:
+            note = f"{recommendation.status}. {note}"
+        ctk.CTkLabel(card, text=note, font=self._font(10), text_color="#91c7a9", anchor="w", wraplength=405, justify="left").grid(row=4, column=0, columnspan=2, sticky="ew", padx=10, pady=(0, 10))
     def _approx_sf(self, value: int | None) -> str:
         if value is None:
             return "-"

@@ -1,3 +1,3 @@
 """Parcel environmental map packet app."""
 
-__version__ = "0.1.23"
+__version__ = "0.1.24"
